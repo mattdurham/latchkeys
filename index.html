@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#6b2330">
+<title>Public Access — Player Handout</title>
+<meta name="description" content="Everything you need to play Public Access in Deep Lake. Self-contained player handout.">
+<style>
+  /* All styling lives in this file — no external CSS needed. Share this single HTML file as-is. */
+  :root{
+    --bg:#f6f2e8;
+    --bg2:#ece6d7;
+    --paper:#ffffff;
+    --paper2:#fcfaf6;
+    --ink:#1a232f;
+    --muted:#5a6572;
+    --line:#d7d0bd;
+    --line2:#b9a77f;
+    --accent:#6b2330;
+    --accent2:#2a435e;
+    --accentSoft:#f0e6e8;
+    --ok:#1a5d2a;
+    --warn:#8a6010;
+    --bad:#8b1e2e;
+    --r:16px; --r2:10px;
+    --shadow:0 4px 24px rgba(27,32,44,.08), 0 1px 4px rgba(27,32,44,.10);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0f1720; --bg2:#14202e; --paper:#1a2736; --paper2:#1e2f42;
+      --ink:#e8edf3; --muted:#9cb1c5; --line:#2a3a4d; --line2:#3a5169;
+      --accent:#d98a96; --accent2:#90b8dc; --accentSoft:#25202b;
+      --shadow:0 8px 28px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:16px; line-height:1.58; color:var(--ink); background:var(--bg);
+    background-image:
+      radial-gradient(1100px 420px at 50% -10%, rgba(107,35,48,.08), transparent 60%),
+      radial-gradient(900px 420px at 100% 0%, rgba(42,67,94,.07), transparent 60%);
+  }
+  @media (prefers-color-scheme: dark){
+    body{background-image:
+      radial-gradient(1100px 420px at 50% -10%, rgba(217,138,150,.08), transparent 60%),
+      radial-gradient(900px 420px at 100% 0%, rgba(144,184,220,.07), transparent 60%)}
+  }
+  a{color:var(--accent2); text-underline-offset:2px}
+  a:hover{text-decoration-thickness:2px}
+  /* top bar */
+  .topbar{position:sticky; top:0; z-index:30; backdrop-filter:saturate(1.2) blur(10px); background:color-mix(in srgb, var(--bg) 86%, transparent); border-bottom:1px solid var(--line); padding-top:env(safe-area-inset-top)}
+  .topbar-inner{max-width:780px; margin:0 auto; padding:10px 16px; display:flex; align-items:center; justify-content:space-between; gap:12px}
+  .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit; min-width:0}
+  .mark{width:36px; height:36px; border-radius:10px; background:var(--accent2); color:#fff; display:grid; place-items:center; font:800 13px/1 ui-monospace,Menlo,monospace; letter-spacing:.6px; flex:none}
+  .brand b{display:block; font:800 13px/1.1 -apple-system,sans-serif; letter-spacing:.07em; text-transform:uppercase}
+  .brand i{display:block; font:400 12px/1.2 -apple-system,sans-serif; color:var(--muted); font-style:normal; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .btn{appearance:none; border:1px solid var(--line); background:var(--paper); color:var(--ink); border-radius:999px; padding:9px 14px; font:650 13px/1 -apple-system,sans-serif; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:6px; white-space:nowrap}
+  .btn:active{transform:translateY(1px)}
+  .btn-dark{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+  @media (prefers-color-scheme: dark){.btn-dark{background:var(--paper2); color:var(--ink); border-color:var(--line2)}}
+
+  .wrap{max-width:780px; margin:0 auto; padding:0 16px 48px}
+  .hero{padding:20px 0 8px}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font:700 11px/1 ui-monospace,monospace; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); background:var(--accentSoft); border:1px solid color-mix(in srgb, var(--accent) 18%, transparent); padding:6px 10px; border-radius:999px}
+  .hero h1{margin:12px 0 8px; font:800 30px/1.05 Georgia,serif; letter-spacing:.015em}
+  .hero h1 em{font-style:normal; color:var(--accent)}
+  .hero p{margin:0; color:var(--muted); font-size:15px; max-width:62ch}
+  /* jump nav */
+  .jumps{position:sticky; top:56px; z-index:20; margin:14px -16px 0; padding:10px 16px 12px; background:color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); overflow:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none}
+  .jumps::-webkit-scrollbar{display:none}
+  .jumps-row{display:flex; gap:8px; width:max-content; padding-bottom:2px}
+  .pill{font:650 13px/1 -apple-system,sans-serif; padding:9px 12px; border-radius:999px; border:1px solid var(--line); background:var(--paper); color:var(--ink); text-decoration:none; white-space:nowrap}
+  .pill:hover{border-color:var(--line2)}
+  /* cards */
+  .card{background:var(--paper); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow); padding:18px 16px; margin:16px 0}
+  @media(min-width:640px){.card{padding:22px 20px}}
+  .card h2{margin:0 0 10px; font:800 18px/1.2 Georgia,serif; letter-spacing:.02em; display:flex; align-items:center; gap:10px}
+  .card h2 .dot{width:28px; height:28px; border-radius:9px; display:grid; place-items:center; font:800 13px/1 ui-monospace,monospace; color:#fff; flex:none}
+  .card h2 .kicker{display:block; font:700 11px/1 ui-monospace,monospace; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:3px}
+  .card h3{margin:18px 0 8px; font:800 15px/1.3 -apple-system,sans-serif}
+  .card h4{margin:16px 0 6px; font:700 13px/1.3 -apple-system,sans-serif; letter-spacing:.02em; text-transform:uppercase; color:var(--muted)}
+  .muted{color:var(--muted)}
+  .lead{font-size:15.5px; line-height:1.6; max-width:68ch}
+  .grid2{display:grid; gap:12px}
+  @media(min-width:640px){.grid2{grid-template-columns:1fr 1fr}}
+  .grid3{display:grid; gap:12px}
+  @media(min-width:700px){.grid3{grid-template-columns:1fr 1fr 1fr}}
+  .ability{border:1px solid var(--line); border-radius:12px; padding:12px 12px; background:var(--paper2)}
+  .ability b{font-size:14px}
+  .ability b span{font:700 11px/1 ui-monospace,monospace; color:var(--muted); border:1px solid var(--line); padding:1px 6px; border-radius:999px; margin-left:6px; vertical-align:middle}
+  .ability p{margin:6px 0 0; font-size:13.5px; color:var(--muted); line-height:1.45}
+  /* table */
+  .table-wrap{border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--paper); margin:12px 0}
+  .table-wrap table{width:100%; border-collapse:collapse; font-size:14px}
+  .table-wrap th{text-align:left; font:700 11px/1 ui-monospace,monospace; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); background:var(--paper2); padding:10px 12px; border-bottom:1px solid var(--line)}
+  .table-wrap td{padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:top}
+  .table-wrap tr:last-child td{border-bottom:0}
+  .badge{display:inline-flex; align-items:center; justify-content:center; min-width:44px; padding:5px 8px; border-radius:999px; font:800 12px/1 ui-monospace,monospace; letter-spacing:.04em; border:1px solid var(--line); background:var(--paper2)}
+  .b-bad{color:var(--bad); border-color:color-mix(in srgb, var(--bad) 22%, var(--line)); background:color-mix(in srgb, var(--bad) 8%, var(--paper2))}
+  .b-mid{color:var(--warn); border-color:color-mix(in srgb, var(--warn) 22%, var(--line)); background:color-mix(in srgb, var(--warn) 9%, var(--paper2))}
+  .b-good{color:var(--ok); border-color:color-mix(in srgb, var(--ok) 22%, var(--line)); background:color-mix(in srgb, var(--ok) 8%, var(--paper2))}
+  .b-crit{color:#fff; background:var(--ok); border-color:var(--ok)}
+  /* moves */
+  details.move{border:1px solid var(--line); border-radius:14px; background:var(--paper); overflow:hidden; margin:10px 0}
+  details.move[open]{box-shadow:var(--shadow)}
+  details.move summary{list-style:none; cursor:pointer; padding:14px 14px; display:flex; align-items:center; gap:10px; font:800 14px/1.3 -apple-system,sans-serif}
+  details.move summary::-webkit-details-marker{display:none}
+  .chev{width:24px; height:24px; border-radius:999px; border:1px solid var(--line); display:grid; place-items:center; font-size:12px; flex:none; background:var(--paper2); transition:transform .15s}
+  details[open] .chev{transform:rotate(90deg)}
+  .move-body{padding:0 14px 14px; border-top:1px solid var(--line); background:var(--paper2)}
+  .move-body p, .move-body li{font-size:14.5px; line-height:1.55}
+  .move-body ul, .move-body ol{margin:8px 0 0 18px; padding:0}
+  .move-body li{margin:6px 0}
+  .move-tag{font:700 10px/1 ui-monospace,monospace; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); border:1px solid var(--line); padding:3px 7px; border-radius:999px; background:var(--paper)}
+  /* callouts */
+  .callout{border-left:4px solid var(--accent2); background:var(--paper2); border:1px solid var(--line); border-left-width:4px; border-radius:10px; padding:12px 12px; margin:12px 0; font-size:14px}
+  .callout.warn{border-left-color:var(--warn)}
+  .callout.bad{border-left-color:var(--bad)}
+  /* timeline */
+  .steps{display:grid; gap:10px; margin:12px 0 0}
+  .step{display:flex; gap:12px; align-items:flex-start; border:1px solid var(--line); background:var(--paper2); border-radius:12px; padding:12px 12px}
+  .step-num{width:30px; height:30px; border-radius:999px; display:grid; place-items:center; font:800 12px/1 ui-monospace,monospace; background:var(--ink); color:var(--bg); flex:none}
+  @media (prefers-color-scheme: dark){.step-num{background:var(--paper); color:var(--ink); border:1px solid var(--line2)}}
+  .step b{font-size:14px}
+  .step p{margin:4px 0 0; font-size:13.7px; color:var(--muted); line-height:1.5}
+  .field label{display:block; font:700 11px/1 ui-monospace,monospace; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin:0 0 6px}
+  .field select, .field input{width:100%; padding:10px 10px; border-radius:10px; border:1px solid var(--line); background:var(--paper); color:var(--ink); font:600 14px/1 -apple-system,sans-serif}
+  .result{margin-left:auto; display:flex; align-items:center; gap:10px; font:800 14px/1 -apple-system,sans-serif}
+  .result .big{font-size:20px}
+  /* footer */
+  footer{margin:22px 0 0; padding:16px; border:1px dashed var(--line); border-radius:12px; background:color-mix(in srgb, var(--paper) 88%, transparent); color:var(--muted); font-size:13px; line-height:1.5}
+  .kbd{font:600 11px/1 ui-monospace,monospace; letter-spacing:.04em; border:1px solid var(--line); background:var(--paper2); padding:2px 6px; border-radius:6px}
+  /* print */
+  @media print{
+    .topbar, .jumps{position:static}
+    .card, details.move{box-shadow:none; break-inside:avoid}
+    body{background:#fff}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#top">
+      <span class="mark">94</span>
+      <span style="min-width:0">
+        <b>Public Access</b>
+        <i>Deep Lake, Kentucky — Summer 2004 • Player Handout</i>
+      </span>
+    </a>
+    <span style="display:flex; gap:8px">
+      <a class="btn btn-dark" href="#quick">Quick ref</a>
+    </span>
+  </div>
+</header>
+
+<div id="top" class="wrap">
+  <div class="hero">
+    <span class="eyebrow">◉ Keep open at the table • Works offline • Add to Home Screen</span>
+    <h1>What every <em>Latchkey</em> knows</h1>
+    <p>Everything you need to play — who you are, how the dice work, what your moves do, and how a night in Deep Lake actually runs. No spoilers, no Keeper advice. If it’s on this page, your character can know it.</p>
+  </div>
+
+  <nav class="jumps" aria-label="Jump to section">
+    <div class="jumps-row">
+      <a class="pill" href="#who">Who you are</a>
+      <a class="pill" href="#deep-lake">Deep Lake</a>
+      <a class="pill" href="#odyssey">Channel 94</a>
+      <a class="pill" href="#how">How it works</a>
+      <a class="pill" href="#abilities">Abilities</a>
+      <a class="pill" href="#rolls">Rolls</a>
+      <a class="pill" href="#keys">Keys</a>
+      <a class="pill" href="#moves">Moves</a>
+      <a class="pill" href="#character">Character</a>
+      <a class="pill" href="#cycle">Cycle</a>
+      <a class="pill" href="#latchkey">Latchkey Moves</a>
+    </div>
+  </nav>
+
+  <!-- WHO YOU ARE -->
+  <section id="who" class="card">
+    <h2><span class="dot" style="background:var(--accent)">1</span><span><span class="kicker">Overview</span>Who you are</span></h2>
+    <p class="lead">You’re a <strong>Deep Lake Latchkey</strong> — now in your early twenties, back in town for the summer. You grew up here in the ’80s and early ’90s with a spare key around your neck and too much unsupervised time. You met the other Latchkeys online, bonding over a shared obsession: <strong>TV Odyssey</strong>. This summer you’re renting a house together on <strong>Rodenbecker Street</strong> to figure out what actually happened to it.</p>
+    <div class="callout">
+      <strong>Start of game:</strong> Pick a name and a rough backstory. Your pre-made sheet already has your style, abilities, and personal moves filled in. You’ll define a few more details together in Session One.
+    </div>
+    <p class="muted" style="font-size:14px; margin:0">You each carry some childhood hurt. It can be big or small — what matters is how it shaped you now.</p>
+  </section>
+
+  <!-- DEEP LAKE -->
+  <section id="deep-lake" class="card">
+    <h2><span class="dot" style="background:var(--accent2)">2</span><span><span class="kicker">The setting</span>Deep Lake, Kentucky</span></h2>
+    <div class="grid2">
+      <div>
+        <ul style="margin:0 0 0 18px; padding:0; font-size:14.5px; line-height:1.6">
+          <li>Remote town, <strong>fewer than 5,000</strong> year-round.</li>
+          <li>The lake doubles the population in summer — vacationers and seasonal workers.</li>
+          <li>Every current mystery somehow circles back to TV Odyssey.</li>
+          <li>You operate out of the rented house on Rodenbecker Street.</li>
+        </ul>
+      </div>
+      <div class="callout" style="margin:0">
+        <strong>The house matters.</strong> Your <em>Corner of the House</em> holds real items you brought with you. An unmarked item gives you <strong>advantage</strong> once when you use it — after that it’s still there for fiction, but the bonus is spent.
+      </div>
+    </div>
+  </section>
+
+  <!-- ODYSSEY -->
+  <section id="odyssey" class="card">
+    <h2><span class="dot" style="background:#5b2b7a">3</span><span><span class="kicker">The mystery at the center</span>TV Odyssey — Channel 94</span></h2>
+    <p class="lead" style="margin-top:0">TV Odyssey was Deep Lake’s public access studio. Anyone could book time and put a show on <strong>cable channel 94</strong> — and with almost no oversight, people did. Low-budget, strange, and local:</p>
+    <p style="margin:8px 0 0; font-size:14.5px"><em>Happy Jack the Lumberjack &amp; Friends</em> • <em>Voyages to the Astral with Lunaria Gomez</em> • <em>Poetry SLAM</em> • <em>Gastronomica</em> • <em>Daily Affirmations with David Tilbert</em> — and more that don’t fit anywhere else.</p>
+    <div class="grid2" style="margin-top:12px">
+      <div class="callout" style="margin:0">
+        <strong>What happened:</strong> In <strong>1992</strong> the building was simply gone one morning. The official story is it burned down, even though there’s no evidence for it. No one in town will talk about it. Press them and you get the same line: <em>“It burned in the early ’90s.”</em>
+      </div>
+      <div class="callout warn" style="margin:0">
+        <strong>What’s left:</strong> <strong>Odyssey tapes</strong> — purple clamshell VHSes with day-glo pyramids and torii gates on the insert. Extremely rare, valuable to collectors. Finding one on a <strong>12+ Meddling</strong> result is a big deal.
+      </div>
+    </div>
+    <details style="margin-top:12px; border:1px solid var(--line); border-radius:10px; background:var(--paper2); padding:10px 12px">
+      <summary style="cursor:pointer; font:700 13px/1 -apple-system,sans-serif">Content note — tap to show</summary>
+      <p style="margin:10px 0 0; font-size:14px; color:var(--muted); line-height:1.6">The game starts with nostalgic investigation and gets darker. It can include cosmic horror, ritual language, childhood trauma, sexism and sexual desire, and consumer-culture satire. Violence is not described graphically. Talk through boundaries and lines/veils with your group before play.</p>
+    </details>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="card">
+    <h2><span class="dot" style="background:var(--accent)">4</span><span><span class="kicker">At the table</span>How it works</span></h2>
+    <h3>Goal</h3>
+    <p style="margin:6px 0 0; font-size:14.5px">Solve the mysteries in front of you. No one — including the Keeper — knows the “right” answer ahead of time. You use the <strong>Clues</strong> you’ve found to build a theory, and the <em>Answer a Question</em> move decides if you’re correct and what happens next.</p>
+    <h3>The conversation</h3>
+    <p style="margin:6px 0 0; font-size:14.5px">Most of the game is just talking. The Keeper describes the world and asks what you do. You say what your Latchkey does. Keep going until what you describe <strong>triggers a move</strong> — then stop, read the move, roll if it says to, and narrate the outcome. Then go back to the conversation.</p>
+    <div class="callout">
+      <strong>The big rule:</strong> <span class="kbd">Players roll, the Keeper doesn’t.</span> Say what you <em>do</em>, not what happens. Ask questions any time. And you can always choose to <em>back down</em> before a risky roll when the move offers it.
+    </div>
+    <h3>Roleplay is worldbuilding</h3>
+    <p style="margin:6px 0 0; font-size:14.5px; color:var(--muted)">When the Keeper asks you to fill in a detail — what you notice, remember, or brought with you — just say it. Specifics are fuel.</p>
+  </section>
+
+  <!-- ABILITIES -->
+  <section id="abilities" class="card">
+    <h2><span class="dot" style="background:var(--accent2)">5</span><span><span class="kicker">Your numbers</span>Abilities</span></h2>
+    <p class="muted" style="margin:0 0 10px; font-size:14px">When a move says to roll, add one of these (from −3 to +3 on your sheet). The Keeper has final say which one fits.</p>
+    <div class="grid2">
+      <div class="ability"><b>Vitality <span>VIT</span></b><p>Strength, speed, endurance, athleticism. Sprinting, grappling, breaking in, carrying someone out.</p></div>
+      <div class="ability"><b>Composure <span>COM</span></b><p>Calm under pressure, steady hands, focus. Resisting fear, lying still, eavesdropping.</p></div>
+      <div class="ability"><b>Reason <span>RSN</span></b><p>Study, analysis, research. Reading a scene, library work, connecting dots.</p></div>
+      <div class="ability"><b>Presence <span>PRE</span></b><p>Charm, intimidation, performance. Working a room, sweet-talking, drawing attention.</p></div>
+      <div class="ability"><b>Sensitivity <span>SEN</span></b><p>Occult and supernatural. The Keeper may call for this when something uncanny shapes the action.</p></div>
+    </div>
+  </section>
+
+  <!-- ROLLS -->
+  <section id="rolls" class="card">
+    <h2><span class="dot" style="background:#1a5d2a">6</span><span><span class="kicker">Dice</span>How to roll</span></h2>
+    <ol style="margin:0 0 0 18px; padding:0; font-size:14.5px; line-height:1.6">
+      <li>Roll <strong>2d6</strong>.</li>
+      <li>Add the relevant ability modifier.</li>
+      <li>Compare to the outcome bands below.</li>
+    </ol>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Result</th><th>What it means</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge b-bad">6− Miss</span></td><td>Things get worse. The Keeper reacts or escalates.</td></tr>
+          <tr><td><span class="badge b-mid">7–9 Hit*</span></td><td>You do it, but with a complication, cost, or hard choice.</td></tr>
+          <tr><td><span class="badge b-good">10–11 Hit</span></td><td>Clean success. You do what you intended.</td></tr>
+          <tr><td><span class="badge b-crit">12+ Crit</span></td><td>Strong success — clean + an extra benefit, advantage, or useful info.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted" style="margin:0; font-size:13px">*A <strong>hit</strong> is 7 or higher. A <strong>miss</strong> is 6 or lower. Many moves key off those words.</p>
+
+    <h3>Advantage &amp; disadvantage</h3>
+    <div class="grid2">
+      <div class="callout" style="margin:0"><strong>Advantage:</strong> Roll <strong>3d6</strong>, keep the <strong>highest two</strong>, then add ability. <span class="muted">Often from a move, or from using an <em>unmarked</em> Corner item.</span></div>
+      <div class="callout" style="margin:0"><strong>Disadvantage:</strong> Roll <strong>3d6</strong>, keep the <strong>lowest two</strong>, then add ability. <span class="muted">Often from a Condition, or Keeper-called circumstances.</span></div>
+    </div>
+    <div class="callout warn" style="font-size:13.5px">
+      <strong>They cancel.</strong> If you’d have both, roll normal 2d6. They never stack — two Conditions + one advantage is still just normal 2d6.
+    </div>
+  </section>
+
+  <!-- KEYS -->
+  <section id="keys" class="card">
+    <h2><span class="dot" style="background:#8a6010">7</span><span><span class="kicker">Your safety net</span>The Keys</span></h2>
+    <p style="margin:0; font-size:14.5px">Your sheet has two Keys: <strong>Key of the Child</strong> (who you were) and <strong>Key of Desolation</strong> (what TV Odyssey is doing to you). The Desolation track is serious — the last box retires your Latchkey.</p>
+    <div class="callout">
+      <strong>Turning a Key:</strong> <em>After</em> the dice and <em>after</em> the Keeper narrates the outcome, you may turn a Key to <strong>raise the result one tier</strong> — miss → 7–9 → 10–11 → 12+. Mark the next box on that Key and follow its prompt before the end of the session. We then re-narrate: what was just described still happened as a felt “other timeline,” but now we play the new result instead.
+    </div>
+    <details style="border:1px solid var(--line); border-radius:10px; background:var(--paper2); padding:10px 12px">
+      <summary style="cursor:pointer; font:700 13px/1 -apple-system,sans-serif">Example — why the Keeper still narrates the bad outcome first</summary>
+      <p style="margin:10px 0 0; font-size:14px; line-height:1.6; color:var(--muted)">Ryan is caught by a corrupt sheriff after exposing him. The player rolls a miss. The Keeper describes the sheriff throwing Ryan off a cliff to silence him — you <em>feel</em> that timeline together. The player then turns a Key: the miss becomes 7–9. Now Ryan escapes, but drops evidence the sheriff can use to track him. Turning a Key is like putting your thumb on the page of a Choose-Your-Own-Adventure to see the bad ending, then going back and choosing differently — on purpose.</p>
+    </details>
+    <p class="muted" style="font-size:13.5px; margin:10px 0 0">Special case: the <em>Answer a Question</em> move can only be boosted by Keys if <strong>every</strong> Latchkey turns one.</p>
+  </section>
+
+  <!-- MOVES -->
+  <section id="moves" class="card">
+    <h2><span class="dot" style="background:var(--accent)">8</span><span><span class="kicker">When you act</span>The five moves</span></h2>
+    <p class="muted" style="margin:0 0 10px; font-size:14px">Name what you do. If it matches one of these, do what the move says. Day vs Night is about <em>danger</em>, not the clock.</p>
+
+    <details class="move" open>
+      <summary><span class="chev">›</span><span style="flex:1">Night Move <span class="move-tag">Dangerous scenes</span></span><span class="muted" style="font:600 12px/1 -apple-system,sans-serif">Risk + fear</span></summary>
+      <div class="move-body">
+        <p><strong>When you do something risky or face something you fear in a dangerous scene</strong> — regardless of actual time — use this.</p>
+        <ol>
+          <li>Name what you fear will happen if you fail or lose your nerve.</li>
+          <li>The Keeper tells you how it’s <em>worse</em> than that.</li>
+          <li>Choose: back down, or go through with it and roll + ability.</li>
+        </ol>
+        <ul>
+          <li><strong>10+:</strong> You do it / hold steady. Say what it looks like.</li>
+          <li><strong>7–9:</strong> You do it / hold steady, but there’s a complication or cost. Keeper says what.</li>
+          <li><strong>12+:</strong> As 10+, plus an extra benefit or advantage. Keeper says what.</li>
+        </ul>
+        <p class="muted" style="font-size:13px">Consequences here are more perilous than Day. Think: breaking into the killer’s house, even at noon.</p>
+      </div>
+    </details>
+
+    <details class="move">
+      <summary><span class="chev">›</span><span style="flex:1">Day Move <span class="move-tag">Lower-stakes</span></span><span class="muted" style="font:600 12px/1 -apple-system,sans-serif">Risk, lighter</span></summary>
+      <div class="move-body">
+        <p><strong>When you do something risky or face something you fear in a lower-stakes scene</strong> — regardless of actual time — roll + ability.</p>
+        <ul>
+          <li><strong>10+:</strong> You do it / hold steady. Say what it looks like.</li>
+          <li><strong>7–9:</strong> You do it / hold steady, but there’s a complication or cost. Keeper says what.</li>
+          <li><strong>12+:</strong> As 10+, plus an extra benefit or advantage.</li>
+        </ul>
+        <p class="muted" style="font-size:13px">Quieter danger. A tense conversation after dark can still be a Day Move.</p>
+      </div>
+    </details>
+
+    <details class="move" open>
+      <summary><span class="chev">›</span><span style="flex:1">Meddling Move <span class="move-tag">Find things</span></span><span class="muted" style="font:600 12px/1 -apple-system,sans-serif">Clues</span></summary>
+      <div class="move-body">
+        <p><strong>When you search, research, or gather information</strong> — say how, then roll + the ability that fits the method.</p>
+        <ul>
+          <li><strong>Hit (7+):</strong> You find a <strong>Clue</strong>. Keeper tells you what it is.</li>
+          <li><strong>7–9:</strong> Also a complication — with the Clue or the search.</li>
+          <li><strong>12+:</strong> Also an <strong>Odyssey tape</strong> <em>or</em> unusual local history. Keeper chooses.</li>
+        </ul>
+        <p style="font-size:13.5px"><strong>Match fiction to ability:</strong> <em>Presence</em> to sweet-talk a deputy; <em>Composure</em> to eavesdrop; <em>Reason</em> to dig in the library. Keeper decides ties.</p>
+        <div class="callout warn"><strong>Getting Clues from people:</strong> Residents don’t like talking about Deep Lake’s mysteries. Getting a Clue from someone will likely require getting on their good side — or coercing them — first. You’ll need to earn their trust, do them a favor, or apply pressure before they open up.</div>
+        <div class="callout bad"><strong>Nighttime is fruitful — and dangerous:</strong> Investigating nighttime activities can yield Clues more easily and in greater numbers, but with significantly more danger. What you find after dark often comes with a cost.</div>
+      </div>
+    </details>
+
+    <details class="move">
+      <summary><span class="chev">›</span><span style="flex:1">Nostalgic Move <span class="move-tag">Heart-to-heart</span></span><span class="muted" style="font:600 12px/1 -apple-system,sans-serif">Heal</span></summary>
+      <div class="move-body">
+        <p><strong>When you share an intimate moment while one of you is waxing nostalgic about something that Takes You Back</strong> (a game, song, show, etc.):</p>
+        <ul>
+          <li>Each of you may <strong>clear an appropriate Condition</strong>.</li>
+          <li>The Latchkey who was <em>not</em> waxing nostalgic also finds a <strong>relevant Clue</strong> — you tell the Keeper what it is. It can’t solve the mystery by itself.</li>
+        </ul>
+        <p class="muted" style="font-size:13px">Risk-free Clue, and the best way to shake Conditions.</p>
+      </div>
+    </details>
+
+    <details class="move">
+      <summary><span class="chev">›</span><span style="flex:1">Answer a Question <span class="move-tag">Solve it</span></span><span class="muted" style="font:600 12px/1 -apple-system,sans-serif">Consensus</span></summary>
+      <div class="move-body">
+        <p><strong>When you have at least half the Clues a Question’s Complexity requires</strong>, talk it out and reach a consensus. Then roll:</p>
+        <p style="text-align:center; font:800 14px/1 ui-monospace,monospace; background:var(--paper); border:1px solid var(--line); padding:10px; border-radius:10px; margin:10px 0">2d6 + Clues used − Question Complexity</p>
+        <ul>
+          <li><strong>10+:</strong> You’re correct. Its <strong>Opportunity</strong> can be pursued.</li>
+          <li><strong>7–9:</strong> You’re correct, but the Keeper adds a complication and/or makes the Opportunity more dangerous.</li>
+          <li><strong>6−:</strong> You’re wrong. The Keeper reacts.</li>
+          <li><strong>12+:</strong> The Big Man appears while you pursue the Opportunity.</li>
+        </ul>
+        <div class="callout warn" style="font-size:13px"><strong>No advantage/disadvantage on this roll. No canonical answers.</strong> Your Clues + your theory <em>are</em> the answer. Boosting tiers here requires <strong>everyone</strong> to turn a Key.</div>
+      </div>
+    </details>
+
+  </section>
+
+  <!-- CHARACTER -->
+  <section id="character" class="card">
+    <h2><span class="dot" style="background:var(--accent2)">9</span><span><span class="kicker">Your sheet</span>Character — quick anatomy</span></h2>
+
+    <div class="grid2">
+      <div>
+        <h3>Identity &amp; style</h3>
+        <ul style="margin:6px 0 0 18px; padding:0; font-size:14px; line-height:1.6">
+          <li><strong>Name:</strong> Circle or make your own.</li>
+          <li><strong>Style:</strong> Outlined on your sheet — your outlook, not a costume.</li>
+          <li><strong>Takes You Back:</strong> 3 nostalgic touchstones (songs, games, shows). Triggers the Nostalgic move.</li>
+        </ul>
+        <h3>Conditions</h3>
+        <p style="margin:6px 0 0; font-size:14px; line-height:1.6">Traits that give <strong>disadvantage</strong> when they’d plausibly get in the way.</p>
+        <ul style="margin:6px 0 0 18px; padding:0; font-size:14px; line-height:1.6">
+          <li>Max <strong>3</strong>. A fourth forces you to turn a Key instead.</li>
+          <li>Cleared by moves or Keeper instruction.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Latchkey moves</h3>
+        <p style="margin:6px 0 0; font-size:14px; line-height:1.5">You can only use a Latchkey move that’s actually printed on your sheet — it’s how sheets differ.</p>
+        <h3>Your Corner of the House</h3>
+        <p style="margin:6px 0 0; font-size:14px; line-height:1.5">Real items in your corner of the Rodenbecker house. Function as gear <em>and</em> color.</p>
+        <ul style="margin:6px 0 0 18px; padding:0; font-size:14px; line-height:1.6">
+          <li>An <strong>unmarked</strong> item → <strong>advantage</strong> once when relevant.</li>
+          <li>After use, mark it. It stays for fiction, bonus is spent.</li>
+          <li>Generally can’t be unmarked. Add items in Session One or when a move/Keeper says so.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Keys — what marking a box means</h3>
+    <p style="margin:6px 0 0; font-size:14px; line-height:1.6">When you turn a Key, mark its next box and follow that box’s prompt <strong>before the end of the current session</strong>. Key of the Child explores flashbacks; Key of Desolation tracks what the station is doing to you — its final box retires the Latchkey.</p>
+  </section>
+
+  <!-- CYCLE -->
+  <section id="cycle" class="card">
+    <h2><span class="dot" style="background:#2a435e">10</span><span><span class="kicker">How a session flows</span>The play cycle</span></h2>
+    <p style="margin:0; text-align:center; font:800 14px/1 ui-monospace,monospace; letter-spacing:.08em; color:var(--accent2)">DAWN → DAY → DUSK → NIGHT → (repeat)</p>
+    <p class="muted" style="margin:6px 0 0; text-align:center; font-size:13px">Day / Night are about <em>rhythm and stakes</em>, not the clock. A new Day can be days or weeks later in fiction.</p>
+
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">☀</span>
+        <span>
+          <b>Dawn — upkeep</b>
+          <p>1. Collect Rewards if a Threat was resolved. 2. Resolve Dawn moves / Key prompts. 3. Optionally resolve any lingering Key prompts (must by session end).</p>
+        </span>
+      </div>
+      <div class="step">
+        <span class="step-num">◐</span>
+        <span>
+          <b>Day — investigate &amp; live</b>
+          <p>If fewer than three mysteries are active, the Keeper presents a new one. Follow your interests: relaxed investigation, character scenes, nostalgia, Clues. <em>Mysteries cannot be resolved during Day.</em> Continue until the Keeper moves to Dusk.</p>
+        </span>
+      </div>
+      <div class="step">
+        <span class="step-num">◑</span>
+        <span>
+          <b>Dusk — pivot to night</b>
+          <p>1. Resolve Dusk moves. 2. Decide together whether to watch an Odyssey tape (tie → Keeper decides). 3. Each player says what their Latchkey will do for Night, then gets one revision. 4. If watching, Keeper reads the tape open and assigns prompts.</p>
+        </span>
+      </div>
+      <div class="step">
+        <span class="step-num">●</span>
+        <span>
+          <b>Night — danger</b>
+          <p><strong>Without a tape:</strong> Continues like Day but faster and more dangerous until the Keeper advances.</p>
+          <p style="margin-top:8px"><strong>With a tape:</strong> Loop: resolve a prompt → brief Latchkey reaction scene → next prompt, until prompts run out. Stay near the viewing spot; scenes are bathroom-break short; dice rarely. Budget ~20–30 min real time.</p>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK REF -->
+  <section id="quick" class="card">
+    <h2><span class="dot" style="background:var(--accent)">✓</span><span><span class="kicker">One glance</span>Quick reminders</span></h2>
+    <ul style="margin:0 0 0 18px; padding:0; font-size:14.5px; line-height:1.7">
+      <li>Say what you <em>do</em>; don’t narrate the result before the roll.</li>
+      <li>Ask the Keeper questions — you can’t investigate what you don’t ask about.</li>
+      <li><strong>Hit = 7+</strong>, <strong>miss = 6−</strong>. Most moves key off those.</li>
+      <li>You can turn a Key <em>after</em> the narration to bump the result one tier.</li>
+      <li>Day vs Night is about <strong>danger</strong>, not time of day.</li>
+      <li>An unmarked Corner item = advantage once.</li>
+      <li>Max 3 Conditions — the 4th costs a Key.</li>
+      <li>Keep Clues visible. You need at least <strong>half Complexity</strong> to attempt <em>Answer a Question</em>.</li>
+    </ul>
+  </section>
+
+  <!-- LATCHKEY MOVES -->
+  <section id="latchkey" class="card" style="border-color:var(--line2)">
+    <h2><span class="dot" style="background:#5b2b7a">★</span><span><span class="kicker">Pick one — no duplicates</span>Latchkey Moves — choose one each</span></h2>
+    <p class="lead" style="margin-top:0">At the start of the game <strong>each player chooses one Latchkey Move</strong>. No two Latchkeys can ever have the same move. It’s your personal edge — the thing that makes your Latchkey different at the table. Read through and pick the one that fits your character.</p>
+    <div class="callout" style="margin:12px 0 14px; border-left-color:#5b2b7a"><strong>How to choose:</strong> Skim the titles, then read the full text for a few that call to you. If your table has a sheet with moves already picked (like the pre-gens), you can keep that one or swap to any below — just no duplicates.</div>
+    <div class="grid2" style="align-items:start">
+      <div class="ability" style="background:var(--paper2)"><b>Where’s the Beef?</b><p>You are a little bigger and a little stronger than most. Increase your Vitality by 1 (max 3). You always use Vitality on rolls associated with actions connected to the Big Man.</p></div>
+      <div class="ability" style="background:var(--paper2)"><b>Sight Beyond Sight</b><p>Whether you call it premonitions, omens, or just a hunch, you glimpse the future. The first time you enter a Location, ask the Keeper <em>“What is about to happen?”</em> They answer truthfully, though not necessarily completely. If you have marked The Sandstone Arch, you can also ask <em>“Why is it about to happen?”</em></p></div>
+      <div class="ability" style="background:var(--paper2)"><b>This Is Your Brain</b><p>You are a little smarter than most, and your logic holds in dark places. Increase your Reason by 1 (max 3). When you mark The Fathomless Well, do not decrease your Reason.</p></div>
+      <div class="ability" style="background:var(--paper2)"><b>Robot in Disguise</b><p>You came to Deep Lake with gadgets. Add to Your Corner of the House: <em>Laptop, Walkie Talkies, GPS, Camcorder, Voice-Activated Audio Recorder</em>.</p></div>
+      <div class="ability" style="background:var(--paper2)"><b>Come With Me If You Want to Live</b><p>You always spot the exits. Once per session, when you and any number of others face grave harm, you can avoid it by narrating how you lead everyone to safety.</p></div>
+      <div class="ability" style="background:var(--paper2)"><b>They Think He’s a Righteous Dude</b><p>Motorheads, dweebs, and wastoids trust you. What is it? Once per session, when you do the Meddling Move in a place occupied by losers and social outcasts, you find an additional Clue, even on a miss.</p></div>
+      <div class="ability" style="background:var(--paper2)"><b>Knowing is Half the Battle</b><p>You’re a deep repository of knowledge, some of it useful. Once per session, you can introduce a real-world fact about something in the scene. That fact is a Clue.</p></div>
+      <div class="ability" style="background:var(--paper2)"><b>A Winner is You</b><p>You were a loser back then, but not anymore! People respect you now. Why? Increase your Presence by 1 (max 3).</p></div>
+      <div class="ability" style="background:var(--paper2)"><b>Say Hello to My Little Friend</b><p>You have an exceptionally smart dog with a strong bond. What breed? Give it a name and add it to Your Corner of the House. When you use the dog to get advantage on a roll, leave it unmarked.</p></div>
+      <div class="ability" style="background:var(--paper2)"><b>I Am Error</b><p>You can mark The Chromatic Desert whenever you want. The other Latchkeys don’t forget you, and you can still interact if a TV is nearby — you appear on whatever is being watched and can hear people speak to you through the TV. When the Latchkeys watch an Odyssey tape, your scenes can take place inside the tape.</p></div>
+      <div class="ability" style="background:var(--paper2)"><b>Who Ya Gonna Call?</b><p>You’re active on the <em>Ghost Bro Mystery Show</em> forums. When you post a question about a Deep Lake mystery, roll with Presence. On a 10+, a commenter has a good answer or Clue and shares it freely. On a 7–9, as above, but they want you to do something first.</p></div>
+      <div class="ability" style="background:var(--paper2)"><b>Thank You for Being a Friend</b><p>You’re easy to open up to. When you do the Nostalgic Move, the other Latchkey can clear a second Condition <em>or</em> they can take the Condition: Feeling Good. They can clear Feeling Good at any time to get advantage on a die roll.</p></div>
+      <div class="ability" style="background:var(--paper2)"><b>And They’re Always Glad You Came</b><p>You have family still in Deep Lake. Who? Any rolls they help with are at advantage. If you’re in immediate danger and can make it to their house, you’re safe until at least the next morning.</p></div>
+      <div class="ability" style="background:var(--paper2)"><b>You Never Know What You’re Going to Get</b><p>You have a research background. What is it? Once per session, when you do the Meddling Move by looking through books, microfiche, old records, or online archives, you find an additional Clue, even on a miss.</p></div>
+      <div class="ability" style="background:var(--paper2)"><b>Have You Ever Danced with the Devil</b><p>You brought tools for black magic. Add to Your Corner of the House: <em>Candles, Grimoire, Small Brazier, Athame, Poppet</em>.</p></div>
+      <div class="ability" style="background:var(--paper2)"><b>Strange Things are Afoot at the Circle K</b><p>You believe in the power of convenience stores. If something typically found at a convenience store would help and you take time to go get it, say what it is and add it to Your Corner of the House.</p></div>
+      <div class="ability" style="background:var(--paper2)"><b>Just Say No</b><p>Something about your past makes you good at handling cops. What is it? Whenever you’re harassed by police or need to talk your way out of law-enforcement trouble, all associated rolls are at advantage.</p></div>
+      <div class="ability" style="background:var(--paper2)"><b>What Nintendon’t</b><p>Once per session, you can take a 12+ on a single roll related to an action so long as you do it with cockiness or style.</p></div>
+      <div class="ability" style="background:var(--paper2)"><b>Next Sunday A.D.</b><p>Once per Day phase, you and at least one other player can do an out-of-character narration of an upcoming scene like movie commentary. At least one thing you say will be true about the scene — tell the Keeper what it is. They may make other parts true too.</p></div>
+    </div>
+    <p class="muted" style="font-size:13px; margin:14px 0 0; text-align:center">19 moves total. If your table has more than 6 players, the Keeper can allow duplicates or homebrew — otherwise, first pick sticks.</p>
+  </section>
+
+</div>
+
+</body>
+</html>
